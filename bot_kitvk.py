@@ -1,4 +1,4 @@
-import vk, http.client, re
+import vk, http.client, re, time
 from lxml import etree
 
 def URI_Parser(AnyText):
