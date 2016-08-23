@@ -2,7 +2,7 @@ import vk, http.client, re
 from lxml import etree
 
 def URI_Parser(AnyText):
-	result = re.findall(r'steamcommunity.com/(\w+/\w+)', stroka2)
+	result = re.findall(r'steamcommunity.com/(\w+/\w+)', AnyText)
 	if result:
 		result = result[0] + "/?xml=1"
 		print(result)
