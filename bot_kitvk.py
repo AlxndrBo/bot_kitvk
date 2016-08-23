@@ -42,7 +42,7 @@ response = api.board.getComments(group_id=112445142, topic_id=33646520, offset=n
 for element in response['items']:
 	print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'])
 	SteamURI = URI_Parser(element['text'])
-	if SteamURI<>-1:
+	if SteamURI!=-1:
 		print("Checked SteamID64="+SteamConvert(SteamURI))
 	time.sleep(10)
 	
