@@ -16,7 +16,7 @@ def SteamConvert(SteamID): #SteamID id/pinkashker/?xml=1 or profiles/76561198086
 	r1 = conn.getresponse()
 	print("STATUS=")
 	print(r1.status)
-	if r1.status==("200"):
+	if r1.status==200:
 		data1 = r1.read()
 		#tree = etree.parse('filename')
 		tree = etree.fromstring(data1)
