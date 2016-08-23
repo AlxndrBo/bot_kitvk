@@ -12,18 +12,16 @@ def URI_Parser(AnyText):
 def SteamConvert(SteamID): #SteamID id/pinkashker/?xml=1 or profiles/7656119808669356/?xml=1
 	conn = http.client.HTTPConnection("steamcommunity.com")
 	conn.request("GET", "/"+SteamID)
-	print("*** " + SteamID)
+	#print("*** " + SteamID)
 	r1 = conn.getresponse()
-	print("STATUS=")
-	print(r1.status)
 	if r1.status==200:
 		data1 = r1.read()
 		#tree = etree.parse('filename')
 		tree = etree.fromstring(data1)
 		SteamID64 = tree.xpath("/profile/steamID64/text()")[0]
 		CustomURL = tree.xpath("/profile/customURL/text()")[0]
-		print('SteamID64='+SteamID64)
-		print('CustomURL='+CustomURL)
+		#print('SteamID64='+SteamID64)
+		#print('CustomURL='+CustomURL)
 		return SteamID64
 	else:
 		print("Response err:")
@@ -47,8 +45,15 @@ for element in response['items']:
 	print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'])
 	SteamURI = URI_Parser(element['text'])
 	if SteamURI!=-1:
-		print("SteamURI"+SteamURI)
-		print("Checked SteamID64="+str(SteamConvert(SteamURI)))
-	time.sleep(10)
+		#print("SteamURI"+SteamURI)
+		CheckedSteamID64 = SteamConvert(SteamURI)
+		if CheckedSteamID64==-1:
+			time.sleep(180)
+			CheckedSteamID64 = SteamConvert(SteamURI)
+			if CheckedSteamID64==-1:
+				time.sleep(180)
+				CheckedSteamID64 = SteamConvert(SteamURI)
+		print("Checked SteamID64 = "+str(CheckedSteamID64))
+	time.sleep(10) # Задержка между запросами к Steam
 	
 #========================================
