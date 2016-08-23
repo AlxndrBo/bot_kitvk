@@ -12,6 +12,7 @@ def URI_Parser(AnyText):
 def SteamConvert(SteamID): #SteamID id/pinkashker/?xml=1 or profiles/7656119808669356/?xml=1
 	conn = http.client.HTTPConnection("steamcommunity.com")
 	conn.request("GET", "/"+SteamID)
+	print("*** " + SteamID)
 	r1 = conn.getresponse()
 	if r1=="200":
 		data1 = r1.read()
