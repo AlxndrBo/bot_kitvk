@@ -23,6 +23,7 @@ def SteamConvert(SteamID): #SteamID id/pinkashker/?xml=1 or profiles/76561198086
 		print('CustomURL='+CustomURL)
 		return SteamID64
 	else:
+		print("Response err:")
 		print(r1)
 		return -1
 
