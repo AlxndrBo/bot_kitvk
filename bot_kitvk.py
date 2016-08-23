@@ -5,14 +5,13 @@ def URI_Parser(AnyText):
 	result = re.findall(r'steamcommunity.com/(\w+/\w+)', AnyText)
 	if result:
 		result = result[0] + "/?xml=1"
-		print(result)
 		return result
 	else:
 		return -1
 
 def SteamConvert(SteamID): #SteamID id/pinkashker/?xml=1 or profiles/7656119808669356/?xml=1
 	conn = http.client.HTTPConnection("steamcommunity.com")
-	conn.request("GET", "/id/pinkashker/?xml=1")
+	conn.request("GET", "/"+SteamID)
 	r1 = conn.getresponse()
 	if r1=="200":
 		data1 = r1.read()
@@ -24,6 +23,7 @@ def SteamConvert(SteamID): #SteamID id/pinkashker/?xml=1 or profiles/76561198086
 		print('CustomURL='+CustomURL)
 		return SteamID64
 	else:
+		print(r1)
 		return -1
 
 #=====================================================================
@@ -42,6 +42,8 @@ response = api.board.getComments(group_id=112445142, topic_id=33646520, offset=n
 for element in response['items']:
 	print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'])
 	SteamURI = URI_Parser(element['text'])
-	print(SteamURI)
+	if SteamURI<>-1:
+		print("Checked SteamID64="+SteamConvert(SteamURI))
+	time.sleep(10)
 	
 #========================================
