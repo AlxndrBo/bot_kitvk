@@ -1,6 +1,9 @@
 import vk, http.client, re, time
 from lxml import etree
 
+VK_groupID = 
+VK_topicID = 
+
 def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида id/customURL/?xml=1 or profiles/SteamID64/?xml=1
 	result = re.findall(r'steamcommunity.com/(\w+/\w+)', AnyText)
 	if result:
