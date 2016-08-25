@@ -21,6 +21,7 @@ def SteamConvert(SteamID): # Принимает ссылку вида id/customU
 		data1 = r1.read()
 		#tree = etree.parse('filename')
 		tree = etree.fromstring(data1)
+		print(data1)
 		SteamID64 = tree.xpath("/profile/steamID64/text()")[0]
 		#CustomURL = tree.xpath("/profile/customURL/text()")[0]
 		#print('SteamID64='+SteamID64)
@@ -51,6 +52,7 @@ def VK_getComments(VK_gID, VK_tID, nOffset):
 	session = vk.Session()
 	api = vk.API(session)
 	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=10, v=5.53) # Запрос последних комментов
+	
 	return response['items']
 
 #=====================================================================
@@ -63,10 +65,10 @@ response_items = VK_getComments(VK_groupID, VK_topicID, new_offset)
 for element in response_items:
 	print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'])
 	VK_UserID = element['from_id']
-	UserInGroup = VK_CheckSignInGroup(VK_UserID, VK_groupID)
-	if UserInGroup==1:
-		SteamURI = URI_Parser(element['text'])
-		if SteamURI!=-1:
+	SteamURI = URI_Parser(element['text'])
+	if SteamURI!=-1:
+		UserInGroup = VK_CheckSignInGroup(VK_UserID, VK_groupID)
+		if UserInGroup==1:
 			#print("SteamURI"+SteamURI)
 			CheckedSteamID64 = SteamConvert(SteamURI)
 			if CheckedSteamID64==-1:
@@ -77,7 +79,7 @@ for element in response_items:
 					CheckedSteamID64 = SteamConvert(SteamURI)
 			# 
 			print("Checked SteamID64 = "+str(CheckedSteamID64))
-		time.sleep(10) # Задержка между запросами к Steam
+	time.sleep(10) # Задержка между запросами к Steam
 	else:
 		print("Ne v gruppe")
 	
