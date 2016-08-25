@@ -63,7 +63,7 @@ response_items = VK_getComments(VK_groupID, VK_topicID, new_offset)
 for element in response_items:
 	print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'])
 	VK_UserID = element['from_id']
-	UserInGroup = VK_CheckSignInGroup(VK_UserID)
+	UserInGroup = VK_CheckSignInGroup(VK_UserID, VK_groupID)
 	if UserInGroup==1:
 		SteamURI = URI_Parser(element['text'])
 		if SteamURI!=-1:
