@@ -77,10 +77,10 @@ for element in response_items:
 				if CheckedSteamID64==-1:
 					time.sleep(180)
 					CheckedSteamID64 = SteamConvert(SteamURI)
-			# 
 			print("Checked SteamID64 = "+str(CheckedSteamID64))
-		time.sleep(10) # Задержка между запросами к Steam
 		else:
 			print("Ne v gruppe")
+		time.sleep(10) # Задержка между запросами к Steam
+		
 	
 #========================================
