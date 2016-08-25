@@ -8,6 +8,7 @@ def URI_Parser(AnyText): # Принимает текст, возвращает �
 	result = re.findall(r'steamcommunity.com/(id|profiles+/\w+)', AnyText)
 	if result:
 		result = result[0] + "/?xml=1"
+		print result
 		return result
 	else:
 		return -1
@@ -21,7 +22,7 @@ def SteamConvert(SteamID): # Принимает ссылку вида id/customU
 		data1 = r1.read()
 		#tree = etree.parse('filename')
 		tree = etree.fromstring(data1)
-		print(data1)
+		#print(data1)
 		SteamID64 = tree.xpath("/profile/steamID64/text()")[0]
 		#CustomURL = tree.xpath("/profile/customURL/text()")[0]
 		#print('SteamID64='+SteamID64)
