@@ -58,7 +58,7 @@ def VK_getComments(VK_gID, VK_tID, nOffset):
 new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 10 # Обрабатывать будем последние 10 сообщений
 print('Kol-vo kommentov=', new_offset+10)
 print('======================================')
-time.pause(0.5)
+time.sleep(0.5)
 response_items = VK_getComments(VK_groupID, VK_topicID, new_offset)
 for element in response_items:
 	print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'])
