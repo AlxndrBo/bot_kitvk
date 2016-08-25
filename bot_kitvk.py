@@ -8,7 +8,7 @@ def URI_Parser(AnyText): # Принимает текст, возвращает �
 	result = re.findall(r'steamcommunity.com/(id|profiles+/\w+)', AnyText)
 	if result:
 		result = result[0] + "/?xml=1"
-		print result
+		print(result)
 		return result
 	else:
 		return -1
