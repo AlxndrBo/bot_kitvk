@@ -46,6 +46,12 @@ def VK_getCommentsQuantity(VK_gID, VK_tID):
 	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=0, count=1, v=5.53) # Запрос чтобы узнать кол-во комментов
 	kolvo = response['count']
 	return kolvo
+	
+def VK_getComments(VK_gID, VK_tID):
+	session = vk.Session()
+	api = vk.API(session)
+	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=new_offset, count=10, v=5.53) # Запрос последних комментов
+	return response['items']
 
 #=====================================================================
 
@@ -53,9 +59,8 @@ new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 10 # Обраба�
 print('Kol-vo kommentov=', new_offset+10)
 print('======================================')
 time.pause(0.5)
-response = api.board.getComments(group_id=112445142, topic_id=33646520, offset=new_offset, count=10, v=5.53) # Запрос последних комментов
 
-for element in response['items']:
+for element in VK_getComments(VK_groupID, VK_topicID):
 	print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'])
 	VK_UserID = element['from_id']
 	UserInGroup = VK_CheckSignInGroup(VK_UserID)
