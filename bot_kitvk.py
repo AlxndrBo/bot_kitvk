@@ -47,10 +47,10 @@ def VK_getCommentsQuantity(VK_gID, VK_tID):
 	kolvo = response['count']
 	return kolvo
 	
-def VK_getComments(VK_gID, VK_tID):
+def VK_getComments(VK_gID, VK_tID, nOffset):
 	session = vk.Session()
 	api = vk.API(session)
-	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=new_offset, count=10, v=5.53) # Запрос последних комментов
+	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=10, v=5.53) # Запрос последних комментов
 	return response['items']
 
 #=====================================================================
@@ -59,25 +59,26 @@ new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 10 # Обраба�
 print('Kol-vo kommentov=', new_offset+10)
 print('======================================')
 time.pause(0.5)
-
-for element in VK_getComments(VK_groupID, VK_topicID):
+response_items = VK_getComments(VK_groupID, VK_topicID, new_offset)
+for element in response_items:
 	print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'])
 	VK_UserID = element['from_id']
 	UserInGroup = VK_CheckSignInGroup(VK_UserID)
-	if UserInGroup
-	
-	SteamURI = URI_Parser(element['text'])
-	if SteamURI!=-1:
-		#print("SteamURI"+SteamURI)
-		CheckedSteamID64 = SteamConvert(SteamURI)
-		if CheckedSteamID64==-1:
-			time.sleep(180)
+	if UserInGroup==1:
+		SteamURI = URI_Parser(element['text'])
+		if SteamURI!=-1:
+			#print("SteamURI"+SteamURI)
 			CheckedSteamID64 = SteamConvert(SteamURI)
 			if CheckedSteamID64==-1:
 				time.sleep(180)
 				CheckedSteamID64 = SteamConvert(SteamURI)
-		# 
-		print("Checked SteamID64 = "+str(CheckedSteamID64))
-	time.sleep(10) # Задержка между запросами к Steam
+				if CheckedSteamID64==-1:
+					time.sleep(180)
+					CheckedSteamID64 = SteamConvert(SteamURI)
+			# 
+			print("Checked SteamID64 = "+str(CheckedSteamID64))
+		time.sleep(10) # Задержка между запросами к Steam
+	else:
+		print("Ne v gruppe")
 	
 #========================================
