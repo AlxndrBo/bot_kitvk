@@ -12,8 +12,6 @@ def URI_Parser(AnyText): # Принимает текст, возвращает �
 	result = re.findall(r'steamcommunity.com(\/id\/\w+|\/profiles\/\w+)', AnyText)
 	if result:
 		result = result[0] + "/?xml=1"
-		print("*** ", result)
-		sys.exit()
 		return result
 	else:
 		return -1
@@ -21,7 +19,6 @@ def URI_Parser(AnyText): # Принимает текст, возвращает �
 def SteamConvert(SteamID): # Принимает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1, возвращает чекнутый через стим SteamID64
 	conn = http.client.HTTPConnection("steamcommunity.com")
 	conn.request("GET", SteamID)
-	#print("*** " + SteamID)
 	r1 = conn.getresponse()
 	if r1.status==200:
 		data1 = r1.read()
