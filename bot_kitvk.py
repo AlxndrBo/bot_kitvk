@@ -7,7 +7,8 @@ VK_topicID = 33646520
 def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида id/customURL/?xml=1 or profiles/SteamID64/?xml=1
 	#result = re.findall(r'steamcommunity.com/(w+/\w+)', AnyText)
 	#result = re.findall(r'steamcommunity.com/(id|profiles+/\w+)', AnyText)
-	result = re.findall(r'(steamcommunity.com\/id\/\w+|steamcommunity.com\/profiles\/\w+)', AnyText)	
+	#result = re.findall(r'(steamcommunity.com\/id\/\w+|steamcommunity.com\/profiles\/\w+)', AnyText)
+	result = re.findall(r'steamcommunity.com\/(id\/\w+)|steamcommunity.com\/(profiles\/\w+)', AnyText)
 	if result:
 		result = result[0] + "/?xml=1"
 		print("*** ", result)
