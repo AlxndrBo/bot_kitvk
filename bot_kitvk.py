@@ -3,7 +3,12 @@ from lxml import etree
 
 VK_groupID = 112445142
 VK_topicID = 33646520
-
+metod = 1 # Способ добавления SteamID в группу VK в файле permissions
+		# 1 - Через Rocket RCON
+		# 2 - Напрямую в файл + RCON p reload
+		# 3 - В файл на веб-сервере при исп. WebPermission плагина.
+		# 31 - Через API сайта
+		# 32 - Напрямую в файл на сервере
 def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1
 	#result = re.findall(r'steamcommunity.com/(w+/\w+)', AnyText)
 	#result = re.findall(r'steamcommunity.com/(id|profiles+/\w+)', AnyText)
@@ -55,8 +60,13 @@ def VK_getComments(VK_gID, VK_tID, nOffset):
 	session = vk.Session()
 	api = vk.API(session)
 	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=10, v=5.53) # Запрос последних комментов
-	
 	return response['items']
+	
+def AddSteamIDtoPermission(CheckedSteamID64, wetod):
+	return 0
+	
+def AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID):
+	return 0
 
 #=====================================================================
 
@@ -80,7 +90,13 @@ for element in response_items:
 				if CheckedSteamID64==-1:
 					time.sleep(180)
 					CheckedSteamID64 = SteamConvert(SteamURI)
-			print("Checked SteamID64 = "+str(CheckedSteamID64))
+			if CheckedSteamID64!=-1:
+				print("Checked SteamID64 = "+str(CheckedSteamID64))
+				#Также можно чекнуть, что с этого VKID не добавлялись ранее.
+				AddSteamIDtoPermission(CheckedSteamID64, metod) # Добавить SteamID на игровой сервер 
+				AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID) # Добавить пару SteamID, VKID в файл 
+			else:
+				print("Neverniy SteamID ili Steam mertv") 
 		else:
 			print("Ne v gruppe")
 		time.sleep(10) # Задержка между запросами к Steam
