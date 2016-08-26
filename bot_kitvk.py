@@ -4,12 +4,12 @@ from lxml import etree
 VK_groupID = 112445142
 VK_topicID = 33646520
 
-def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида id/customURL/?xml=1 or profiles/SteamID64/?xml=1
+def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1
 	#result = re.findall(r'steamcommunity.com/(w+/\w+)', AnyText)
 	#result = re.findall(r'steamcommunity.com/(id|profiles+/\w+)', AnyText)
 	#result = re.findall(r'(steamcommunity.com\/id\/\w+|steamcommunity.com\/profiles\/\w+)', AnyText)
 	#result = re.findall(r'steamcommunity.com(\/id\/\w+)|steamcommunity.com(\/profiles\/\w+)', AnyText)
-	result = re.findall(r'steamcommunity.com/(id\/\w+|profiles\/\w+)', AnyText)
+	result = re.findall(r'steamcommunity.com(\/id\/\w+|\/profiles\/\w+)', AnyText)
 	if result:
 		result = result[0] + "/?xml=1"
 		print("*** ", result)
@@ -18,9 +18,9 @@ def URI_Parser(AnyText): # Принимает текст, возвращает �
 	else:
 		return -1
 
-def SteamConvert(SteamID): # Принимает ссылку вида id/customURL/?xml=1 or profiles/SteamID64/?xml=1, возвращает чекнутый через стим SteamID64
+def SteamConvert(SteamID): # Принимает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1, возвращает чекнутый через стим SteamID64
 	conn = http.client.HTTPConnection("steamcommunity.com")
-	conn.request("GET", "/"+SteamID)
+	conn.request("GET", SteamID)
 	#print("*** " + SteamID)
 	r1 = conn.getresponse()
 	if r1.status==200:
