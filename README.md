@@ -25,3 +25,5 @@ TO DO:
 
 **В разработке.**
 **In developing.**
+
+I run my script as service (with systemctl command). See HowToRunAsService.txt
