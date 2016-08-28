@@ -8,7 +8,7 @@
 DAEMON_PATH="/home/oper/bot_kitvk"
 
 DAEMON=bot_kitvk.py
-DAEMONOPTS=""  # "LAUNCH OPTIONS"
+DAEMONOPTS=$2 #      ""  # "LAUNCH OPTIONS"
 
 NAME=Bot_kitVK
 DESC="Bot kit VK automaticaly add SteamID64 to group permissions. SteamID64 get from users request in VK"
