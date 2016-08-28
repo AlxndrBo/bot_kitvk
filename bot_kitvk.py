@@ -16,12 +16,12 @@ metod = 1 # Способ добавления SteamID в группу VK в фа
 			# 31 - Через API сайта | Не реализовано
 			# 32 - Напрямую в файл на сервере | Не реализовано
 
-RCON_login_line = "login " + str(RCON_pwd)
+RCON_login_line = b"login " + RCON_pwd.encode("utf-8")
 
 			
 conn = socket.socket()
 conn.connect((RCON_IP, RCON_Port))
-conn.send(RCON_login_line + "\n")
+conn.send(RCON_login_line + b"\n")
 time.sleep(1)
 conn.send(b"p reload\n")
 time.sleep(1)
