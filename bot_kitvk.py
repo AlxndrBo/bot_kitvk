@@ -22,7 +22,7 @@ metod = 1 # Способ добавления SteamID в группу VK в фа
 RCON_login_line = b"login " + RCON_pwd.encode("utf-8")
 
 
-for serv in range(0, len(ServerList)/2, 2):
+for serv in range(0, len(ServerList), 2):
 	print("serv: ", ServerList[i])
 	print("port: ", ServerList[i+1])
 
