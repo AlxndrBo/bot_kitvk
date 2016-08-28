@@ -5,7 +5,7 @@ RCON_pwd = input("RCON password: ")
 SteamID_list = []
 VK_groupID = 112445142
 VK_topicID = 33646520
-RCON_IP = 192.168.0.4
+RCON_IP = "192.168.0.4"
 metod = 1 # Способ добавления SteamID в группу VK в файле permissions
 		# 1 - Через Rocket RCON 
 		# 2 - Напрямую в файл + RCON p reload | Не реализовано
