@@ -19,32 +19,6 @@ metod = 1 # Способ добавления SteamID в группу VK в фа
 			# 31 - Через API сайта | Не реализовано
 			# 32 - Напрямую в файл на сервере | Не реализовано
 
-RCON_login_line = b"login " + RCON_pwd.encode("utf-8")
-
-
-for i in range(0, len(ServerList), 2):
-	print("serv: ", ServerList[i])
-	print("port: ", ServerList[i+1])
-
-
-sys.exit()	
-
-			
-conn = socket.socket()
-conn.connect((RCON_IP, RCON_Port))
-conn.send(RCON_login_line + b"\n")
-time.sleep(1)
-conn.send(b"p reload\n")
-time.sleep(1)
-conn.send(b"p reload\n")
-time.sleep(1)
-conn.shutdown(2)
-time.sleep(1)
-conn.close()
-
-sys.exit()
-			
-			
 def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1
 	#result = re.findall(r'steamcommunity.com/(w+/\w+)', AnyText)
 	#result = re.findall(r'steamcommunity.com/(id|profiles+/\w+)', AnyText)
@@ -98,12 +72,24 @@ def VK_getComments(VK_gID, VK_tID, nOffset):
 	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=10, v=5.53) # Запрос последних комментов
 	return response['items']
 	
-def AddSteamIDtoPermission(ServList, ID_list, metod): # Добавляет пользователям права на сервере (добавляет в группу)
-	for serv in ServList[::2]:
-		print("sss")
-		
-	for element in ID_list:
-		print(element)
+def AddSteamIDtoPermission(ServList, pwd, ID_list, metod): # Добавляет пользователям права на сервере (добавляет в группу)
+	RCON_login_line = b"login " + pwd.encode("utf-8")
+	conn = socket.socket()
+	for i in range(0, len(ServList), 2):
+		print("serv: ", ServList[i])
+		print("port: ", ServList[i+1])
+		conn.connect((ServList[i], ServList[i+1]))
+		conn.send(RCON_login_line + b"\n")
+		time.sleep(1)
+		for element in ID_list:
+			print(element, "->")
+			CMD_Line = b"p add " + element.encode("utf-8") + b" VK"
+			conn.send(CMD_Line)
+			time.sleep(1)
+		time.sleep(1)
+		conn.shutdown(2)
+		time.sleep(1)
+		conn.close()
 	return 0
 	
 def AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID):
@@ -143,6 +129,6 @@ for element in response_items:
 			print("Ne v gruppe")
 		time.sleep(10) # Задержка между запросами к Steam
 
-AddSteamIDtoPermission(SteamID_list, metod)
+AddSteamIDtoPermission(ServerList, RCON_pwd, SteamID_list, metod)
 	
 #========================================
