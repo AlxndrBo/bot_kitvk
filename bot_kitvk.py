@@ -1,14 +1,17 @@
-import vk, http.client, re, time
+import vk, http.client, re, time, socket
 from lxml import etree
 
+RCON_pwd = input("RCON password: ")
+SteamID_list = []
 VK_groupID = 112445142
 VK_topicID = 33646520
+RCON_IP = 192.168.0.4
 metod = 1 # Способ добавления SteamID в группу VK в файле permissions
-		# 1 - Через Rocket RCON
-		# 2 - Напрямую в файл + RCON p reload
-		# 3 - В файл на веб-сервере при исп. WebPermission плагина.
-		# 31 - Через API сайта
-		# 32 - Напрямую в файл на сервере
+		# 1 - Через Rocket RCON 
+		# 2 - Напрямую в файл + RCON p reload | Не реализовано
+		# 3x - В файл на веб-сервере при исп. WebPermission плагина. | Не реализовано
+			# 31 - Через API сайта | Не реализовано
+			# 32 - Напрямую в файл на сервере | Не реализовано
 def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1
 	#result = re.findall(r'steamcommunity.com/(w+/\w+)', AnyText)
 	#result = re.findall(r'steamcommunity.com/(id|profiles+/\w+)', AnyText)
@@ -62,7 +65,9 @@ def VK_getComments(VK_gID, VK_tID, nOffset):
 	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=10, v=5.53) # Запрос последних комментов
 	return response['items']
 	
-def AddSteamIDtoPermission(CheckedSteamID64, wetod):
+def AddSteamIDtoPermission(ID_list, metod):
+	for element in ID_list:
+		print(element)
 	return 0
 	
 def AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID):
@@ -93,13 +98,15 @@ for element in response_items:
 			if CheckedSteamID64!=-1:
 				print("Checked SteamID64 = "+str(CheckedSteamID64))
 				#Также можно чекнуть, что с этого VKID не добавлялись ранее.
-				AddSteamIDtoPermission(CheckedSteamID64, metod) # Добавить SteamID на игровой сервер 
-				AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID) # Добавить пару SteamID, VKID в файл 
+				SteamID_list.append(CheckedSteamID64)
+				#AddSteamIDtoPermission(CheckedSteamID64, metod) # Добавить SteamID на игровой сервер 
+				#AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID) # Добавить пару SteamID, VKID в файл 
 			else:
 				print("Neverniy SteamID ili Steam mertv") 
 		else:
 			print("Ne v gruppe")
 		time.sleep(10) # Задержка между запросами к Steam
-		
+
+AddSteamIDtoPermission(SteamID_list, metod)
 	
 #========================================
