@@ -2,7 +2,7 @@ import vk, http.client, re, time, socket, sys
 from lxml import etree
 
 #RCON_pwd = input("RCON password: ") # В своем рабочем скрипте можете указать пароль тут. Не кладите пароль на github :)))
-if len(sys.argv):
+if len(sys.argv)!=0:
 	RCON_pwd = sys.argv[1] # Get RCON_pwd from command line param. For start: bot_kitvk.py rconpassword
 	print(RCON_pwd)
 else:
