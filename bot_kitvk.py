@@ -74,10 +74,10 @@ def VK_getComments(VK_gID, VK_tID, nOffset):
 	
 def AddSteamIDtoPermission(ServList, pwd, ID_list, metod): # Добавляет пользователям права на сервере (добавляет в группу)
 	RCON_login_line = b"login " + pwd.encode("utf-8")
-	conn = socket.socket()
 	for i in range(0, len(ServList), 2):
 		print("serv: ", ServList[i])
 		print("port: ", ServList[i+1])
+		conn = socket.socket()
 		conn.connect((ServList[i], ServList[i+1]))
 		conn.send(RCON_login_line + b"\n")
 		time.sleep(1)
