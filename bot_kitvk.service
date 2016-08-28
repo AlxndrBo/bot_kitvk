@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=/usr/bin/python3 /home/oper/bot_kitvk/bot_kitvk.py RCON_PASSWORD_HERE
+ExecStart=/usr/bin/python3 /home/oper/bot_kitvk/bot_kitvk.py RCON_PASSWORD_HERE >> /home/oper/bot_kitvk/bot.log 2>&1
 
 [Install]
 WantedBy=multi-user.target
