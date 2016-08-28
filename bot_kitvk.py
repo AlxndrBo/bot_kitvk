@@ -98,6 +98,7 @@ def VK_getComments(VK_gID, VK_tID, nOffset):
 	
 def AddSteamIDtoPermission(ServList, ID_list, metod): # Добавляет пользователям права на сервере (добавляет в группу)
 	for serv in ServList[::2]:
+		print("sss")
 		
 	for element in ID_list:
 		print(element)
