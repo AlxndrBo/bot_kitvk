@@ -134,4 +134,5 @@ while 1:
 			time.sleep(10) # Задержка между запросами к Steam
 	AddSteamIDtoPermission(ServerList, RCON_pwd, SteamID_list, metod)
 	time.sleep(1200) # Ожидание перед следующей итерацией
+	SteamID_list = []
 #========================================
