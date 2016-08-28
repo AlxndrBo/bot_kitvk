@@ -83,7 +83,7 @@ def AddSteamIDtoPermission(ServList, pwd, ID_list, metod): # Добавляет 
 		time.sleep(1)
 		for element in ID_list:
 			print(element, "->")
-			CMD_Line = b"p add " + element.encode("utf-8") + b" VK"
+			CMD_Line = b"p add " + element.encode("utf-8") + b" VK\n"
 			conn.send(CMD_Line)
 			time.sleep(1)
 		time.sleep(1)
