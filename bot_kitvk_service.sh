@@ -3,6 +3,7 @@
 # chkconfig: 345 20 80
 # description: Bot kit VK automaticaly add SteamID64 to group permissions. SteamID64 get from users request in VK
 # processname: bot_kitvk
+# autor: MasterAler (https://github.com/MasterAler),(http://masteraler.ru/python-daemon/)
 
 DAEMON_PATH="/home/oper/bot_kitvk"
 
