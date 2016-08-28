@@ -1,0 +1,25 @@
+sudo nano /lib/systemd/system/bot_kitvk.service
+
+Add in the following text **(See my file bot_kitvk.service)**
+
+[Unit]
+Description=My Script Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python /home/pi/myscript.py 
+
+[Install]
+WantedBy=multi-user.target
+
+Set perm
+sudo chmod 644 /lib/systemd/system/myscript.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable myscript.service
+sudo reboot
+
+sudo systemctl stop myscript.service
+sudo systemctl start myscript.service
+sudo systemctl status myscript.service
