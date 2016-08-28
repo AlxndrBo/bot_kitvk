@@ -77,15 +77,15 @@ def VK_getComments(VK_gID, VK_tID, nOffset):
 def AddSteamIDtoPermission(ServList, pwd, ID_list, metod): # Добавляет пользователям права на сервере (добавляет в группу)
 	RCON_login_line = b"login " + pwd.encode("utf-8")
 	for i in range(0, len(ServList), 2):
-		print("===================================================")
-		print("serv: ", ServList[i])
-		print("port: ", ServList[i+1])
+		##print("===================================================")
+		##print("serv: ", ServList[i])
+		##print("port: ", ServList[i+1])
 		conn = socket.socket()
 		conn.connect((ServList[i], ServList[i+1]))
 		conn.send(RCON_login_line + b"\n")
 		time.sleep(1.5)
 		for element in ID_list:
-			print(element, "->")
+			##print(element, "->")
 			CMD_Line = b"p add " + element.encode("utf-8") + b" VK\n"
 			conn.send(CMD_Line)
 			time.sleep(1.5)
@@ -100,10 +100,10 @@ def AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID):
 
 #=====================================================================
 
-while 1
+while 1:
 	new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 10 # Обрабатывать будем последние 10 сообщений
 	print('Kol-vo kommentov=', new_offset+10)
-	print('======================================')
+	##print('======================================')
 	time.sleep(0.5)
 	response_items = VK_getComments(VK_groupID, VK_topicID, new_offset)
 	for element in response_items:
@@ -133,5 +133,5 @@ while 1
 				print("Ne v gruppe")
 			time.sleep(10) # Задержка между запросами к Steam
 	AddSteamIDtoPermission(ServerList, RCON_pwd, SteamID_list, metod)
-	time.sleep(1200)
+	time.sleep(1200) # Ожидание перед следующей итерацией
 #========================================
