@@ -1,16 +1,16 @@
 #!/bin/bash
 # sample daemon
 # chkconfig: 345 20 80
-# description: daemon description
-# processname: process_name
+# description: Bot kit VK automaticaly add SteamID64 to group permissions. SteamID64 get from users request in VK
+# processname: bot_kitvk
 
-DAEMON_PATH="/PATH/TO/YOUR/SCRIPT"
+DAEMON_PATH="/home/oper/bot_kitvk"
 
-DAEMON=SCRIPT_NAME.py
-DAEMONOPTS="LAUNCH OPTIONS"
+DAEMON=bot_kitvk.py
+DAEMONOPTS=""  # "LAUNCH OPTIONS"
 
-NAME=DAEMON_NAME
-DESC="DESCRIPTION HERE"
+NAME=Bot_kitVK
+DESC="Bot kit VK automaticaly add SteamID64 to group permissions. SteamID64 get from users request in VK"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
@@ -18,7 +18,7 @@ case "$1" in
 start)
 	printf "%-50s" "Starting $NAME..."
 	cd $DAEMON_PATH
-	PID=`python3.3 $DAEMON $DAEMONOPTS > /dev/null 2>&1 & echo $!`
+	PID=`python3 $DAEMON $DAEMONOPTS >> /home/oper/bot_kitvk/bot.log   #/dev/null 2>&1 & echo $!`
 	#echo "Saving PID" $PID " to " $PIDFILE
         if [ -z $PID ]; then
             printf "%s\n" "Fail"
