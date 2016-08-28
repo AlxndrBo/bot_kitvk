@@ -1,17 +1,39 @@
 import vk, http.client, re, time, socket
 from lxml import etree
 
+
+
 RCON_pwd = input("RCON password: ")
 SteamID_list = []
 VK_groupID = 112445142
 VK_topicID = 33646520
 RCON_IP = "192.168.0.4"
+RCON_Port = 2022
 metod = 1 # Способ добавления SteamID в группу VK в файле permissions
 		# 1 - Через Rocket RCON 
 		# 2 - Напрямую в файл + RCON p reload | Не реализовано
 		# 3x - В файл на веб-сервере при исп. WebPermission плагина. | Не реализовано
 			# 31 - Через API сайта | Не реализовано
 			# 32 - Напрямую в файл на сервере | Не реализовано
+
+RCON_login_line = "login " + str(RCON_pwd)
+
+			
+conn = socket.socket()
+conn.connect((RCON_IP, RCON_Port))
+conn.send(RCON_login_line + "\n")
+time.sleep(1)
+conn.send(b"p reload\n")
+time.sleep(1)
+conn.send(b"p reload\n")
+time.sleep(1)
+conn.shutdown(2)
+time.sleep(1)
+conn.close()
+
+sys.exit()
+			
+			
 def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1
 	#result = re.findall(r'steamcommunity.com/(w+/\w+)', AnyText)
 	#result = re.findall(r'steamcommunity.com/(id|profiles+/\w+)', AnyText)
