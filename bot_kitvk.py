@@ -100,38 +100,38 @@ def AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID):
 
 #=====================================================================
 
-new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 10 # Обрабатывать будем последние 10 сообщений
-print('Kol-vo kommentov=', new_offset+10)
-print('======================================')
-time.sleep(0.5)
-response_items = VK_getComments(VK_groupID, VK_topicID, new_offset)
-for element in response_items:
-	print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'][:50])
-	VK_UserID = element['from_id']
-	SteamURI = URI_Parser(element['text'])
-	if SteamURI!=-1:
-		UserInGroup = VK_CheckSignInGroup(VK_UserID, VK_groupID)
-		if UserInGroup==1:
-			#print("SteamURI"+SteamURI)
-			CheckedSteamID64 = SteamConvert(SteamURI)
-			if CheckedSteamID64==-1:
-				time.sleep(180)
+while 1
+	new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 10 # Обрабатывать будем последние 10 сообщений
+	print('Kol-vo kommentov=', new_offset+10)
+	print('======================================')
+	time.sleep(0.5)
+	response_items = VK_getComments(VK_groupID, VK_topicID, new_offset)
+	for element in response_items:
+		print(str(element['from_id']) + ' | ' + str(element['id']) + ' | ' + element['text'][:50])
+		VK_UserID = element['from_id']
+		SteamURI = URI_Parser(element['text'])
+		if SteamURI!=-1:
+			UserInGroup = VK_CheckSignInGroup(VK_UserID, VK_groupID)
+			if UserInGroup==1:
+				#print("SteamURI"+SteamURI)
 				CheckedSteamID64 = SteamConvert(SteamURI)
 				if CheckedSteamID64==-1:
 					time.sleep(180)
 					CheckedSteamID64 = SteamConvert(SteamURI)
-			if CheckedSteamID64!=-1:
-				print("Checked SteamID64 = "+str(CheckedSteamID64))
-				#Также можно чекнуть, что с этого VKID не добавлялись ранее.
-				SteamID_list.append(CheckedSteamID64)
-				#AddSteamIDtoPermission(CheckedSteamID64, metod) # Добавить SteamID на игровой сервер 
-				#AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID) # Добавить пару SteamID, VKID в файл 
+					if CheckedSteamID64==-1:
+						time.sleep(180)
+						CheckedSteamID64 = SteamConvert(SteamURI)
+				if CheckedSteamID64!=-1:
+					print("Checked SteamID64 = "+str(CheckedSteamID64))
+					#Также можно чекнуть, что с этого VKID не добавлялись ранее.
+					SteamID_list.append(CheckedSteamID64)
+					#AddSteamIDtoPermission(CheckedSteamID64, metod) # Добавить SteamID на игровой сервер 
+					#AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID) # Добавить пару SteamID, VKID в файл 
+				else:
+					print("Neverniy SteamID ili Steam mertv") 
 			else:
-				print("Neverniy SteamID ili Steam mertv") 
-		else:
-			print("Ne v gruppe")
-		time.sleep(10) # Задержка между запросами к Steam
-
-AddSteamIDtoPermission(ServerList, RCON_pwd, SteamID_list, metod)
-	
+				print("Ne v gruppe")
+			time.sleep(10) # Задержка между запросами к Steam
+	AddSteamIDtoPermission(ServerList, RCON_pwd, SteamID_list, metod)
+	time.sleep(1200)
 #========================================
