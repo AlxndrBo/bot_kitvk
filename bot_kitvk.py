@@ -7,8 +7,11 @@ RCON_pwd = input("RCON password: ")
 SteamID_list = []
 VK_groupID = 112445142
 VK_topicID = 33646520
-RCON_IP = "192.168.0.4"
-RCON_Port = 2022
+ServerList = {'RCON_IP_1': '192.168.0.4', 'RCON_Port_1': '2022', 'RCON_IP_2': '192.168.0.4', 'RCON_Port_2': '2122'}
+#RCON_IP_1 = "192.168.0.4"
+#RCON_Port_1 = 2022	# Note! Block any connections to RCON port from any external IP in your firewall
+#RCON_IP_2 = "192.168.0.4" # I have two servers
+#RCON_Port_2 = 2122
 metod = 1 # Способ добавления SteamID в группу VK в файле permissions
 		# 1 - Через Rocket RCON 
 		# 2 - Напрямую в файл + RCON p reload | Не реализовано
@@ -17,6 +20,12 @@ metod = 1 # Способ добавления SteamID в группу VK в фа
 			# 32 - Напрямую в файл на сервере | Не реализовано
 
 RCON_login_line = b"login " + RCON_pwd.encode("utf-8")
+
+
+for serv in ServList[::2]:
+	print(serv)
+
+sys.exit()	
 
 			
 conn = socket.socket()
@@ -87,7 +96,9 @@ def VK_getComments(VK_gID, VK_tID, nOffset):
 	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=10, v=5.53) # Запрос последних комментов
 	return response['items']
 	
-def AddSteamIDtoPermission(ID_list, metod):
+def AddSteamIDtoPermission(ServList, ID_list, metod): # Добавляет пользователям права на сервере (добавляет в группу)
+	for serv in ServList[::2]:
+		
 	for element in ID_list:
 		print(element)
 	return 0
