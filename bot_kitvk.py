@@ -1,7 +1,12 @@
-import vk, http.client, re, time, socket
+import vk, http.client, re, time, socket, sys
 from lxml import etree
 
-RCON_pwd = input("RCON password: ") # В своем рабочем скрипте можете указать пароль тут. Не кладите пароль на github :)))
+#RCON_pwd = input("RCON password: ") # В своем рабочем скрипте можете указать пароль тут. Не кладите пароль на github :)))
+RCON_pwd = sys.argv[1]
+print(RCON_pwd)
+
+sys.exit()
+
 SteamID_list = []
 VK_groupID = 112445142
 VK_topicID = 33646520
