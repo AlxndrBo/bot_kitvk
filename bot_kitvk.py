@@ -102,7 +102,7 @@ def AddSteamIDtoPermission(ServList, pwd, ID_list, metod): # Добавляет 
 def AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID):
 	return 0
 	
-def WriteToLog(DataForLog, LogFileName)
+def WriteToLog(DataForLog, LogFileName):
 	return 0
 	
 
