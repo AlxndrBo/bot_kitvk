@@ -20,12 +20,9 @@ metod = 1 # Способ добавления SteamID в группу VK в фа
 		# 3x - В файл на веб-сервере при исп. WebPermission плагина. | Не реализовано
 			# 31 - Через API сайта | Не реализовано
 			# 32 - Напрямую в файл на сервере | Не реализовано
+LogFile = 'filenameHERE'
 
 def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1
-	#result = re.findall(r'steamcommunity.com/(w+/\w+)', AnyText)
-	#result = re.findall(r'steamcommunity.com/(id|profiles+/\w+)', AnyText)
-	#result = re.findall(r'(steamcommunity.com\/id\/\w+|steamcommunity.com\/profiles\/\w+)', AnyText)
-	#result = re.findall(r'steamcommunity.com(\/id\/\w+)|steamcommunity.com(\/profiles\/\w+)', AnyText)
 	result = re.findall(r'steamcommunity.com(\/id\/\w+|\/profiles\/\w+)', AnyText)
 	if result:
 		result = result[0] + "/?xml=1"
@@ -35,7 +32,12 @@ def URI_Parser(AnyText): # Принимает текст, возвращает �
 
 def SteamConvert(SteamID): # Принимает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1, возвращает чекнутый через стим SteamID64
 	conn = http.client.HTTPConnection("steamcommunity.com")
-	conn.request("GET", SteamID)
+	try:
+		conn.request("GET", SteamID)
+	except RemoteDisconnected:
+		WriteToLog('http.client.RemoteDisconnected', LogFile)
+	except Exception:
+		WriteToLog('http.client.anyerr', LogFile)
 	r1 = conn.getresponse()
 	if r1.status==200:
 		data1 = r1.read()
@@ -46,10 +48,12 @@ def SteamConvert(SteamID): # Принимает ссылку вида /id/custom
 		#CustomURL = tree.xpath("/profile/customURL/text()")[0]
 		#print('SteamID64='+SteamID64)
 		#print('CustomURL='+CustomURL)
+		conn.close()
 		return SteamID64
 	else:
 		print("Response err:")
 		print(r1.status)
+		conn.close()
 		return -1
 
 def VK_CheckSignInGroup(VK_uID, VK_groupID): # Получает VK user ID, проверяет на вхождение в группу. Возвращает 1 при вхождении, 0 при отсутствии, -1 при ошибке
@@ -97,6 +101,10 @@ def AddSteamIDtoPermission(ServList, pwd, ID_list, metod): # Добавляет 
 	
 def AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID):
 	return 0
+	
+gef WriteToLog(DataForLog, LogFileName)
+	return 0
+	
 
 #=====================================================================
 
