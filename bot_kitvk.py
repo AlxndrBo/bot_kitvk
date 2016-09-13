@@ -39,14 +39,9 @@ def SteamConvert(SteamID): # Принимает ссылку вида /id/custom
 		#print('+++++ ', SteamID)
 	except RemoteDisconnected:
 		WriteToLog('http.client.RemoteDisconnected', LogFile)
-		flag=1
 	except Exception:
 		WriteToLog('http.client.anyerr', LogFile)
-		flag=1
 	r1 = conn.getresponse()
-	if flag==1:
-		print('flag=1')
-		print(r1.read()) # для отладки.
 	if r1.status==200:
 		data1 = r1.read()
 		#tree = etree.parse('filename')
