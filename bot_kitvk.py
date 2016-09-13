@@ -82,7 +82,7 @@ def VK_getCommentsQuantity(VK_gID, VK_tID):
 def VK_getComments(VK_gID, VK_tID, nOffset):
 	session = vk.Session()
 	api = vk.API(session)
-	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=10, v=5.53) # Запрос последних комментов
+	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=3, v=5.53) # Запрос последних комментов
 	return response['items']
 	
 def AddSteamIDtoPermission(ServList, pwd, ID_list, metod): # Добавляет пользователям права на сервере (добавляет в группу)
