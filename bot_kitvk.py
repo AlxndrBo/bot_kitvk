@@ -43,6 +43,7 @@ def SteamConvert(SteamID): # Принимает ссылку вида /id/custom
 		flag=1
 	r1 = conn.getresponse()
 	if flag==1:
+		print('flag=1')
 		print(r1.read()) # для отладки.
 	if r1.status==200:
 		data1 = r1.read()
