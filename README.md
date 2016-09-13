@@ -29,3 +29,6 @@ TO DO:
 **In developing.**
 
 I run my script as service (with systemctl command). See HowToRunAsService.txt
+
+You can also run with command python3 bot_kitvk.py YourRCONpwd
+
