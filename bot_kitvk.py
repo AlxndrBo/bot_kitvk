@@ -23,8 +23,8 @@ metod = 1 # Способ добавления SteamID в группу VK в фа
 LogFile = 'filenameHERE'
 
 def URI_Parser(AnyText): # Принимает текст, возвращает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1
-	result = re.findall(r'steamcommunity.com(\/id\/\w+|\/profiles\/\w+)', AnyText)
-	#result = re.findall(r'steamcommunity.com(\/id\/[\w|\-|\~|\.]+|\/profiles\/\d+)', AnyText)
+	#result = re.findall(r'steamcommunity.com(\/id\/\w+|\/profiles\/\w+)', AnyText)
+	result = re.findall(r'steamcommunity.com(\/id\/[\w|\-|\~|\.]+|\/profiles\/\d+)', AnyText)
 	if result:
 		result = result[0] + "/?xml=1"
 		return result
