@@ -88,7 +88,7 @@ def VK_getCommentsQuantity(VK_gID, VK_tID):
 def VK_getComments(VK_gID, VK_tID, nOffset):
 	session = vk.Session()
 	api = vk.API(session)
-	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=3, v=5.53) # Запрос последних комментов
+	response = api.board.getComments(group_id=VK_gID, topic_id=VK_tID, offset=nOffset, count=10, v=5.53) # Запрос последних комментов
 	return response['items']
 	
 def AddSteamIDtoPermission(ServList, pwd, ID_list, metod): # Добавляет пользователям права на сервере (добавляет в группу)
@@ -122,8 +122,8 @@ def WriteToLog(DataForLog, LogFileName):
 #=====================================================================
 
 while 1:
-	new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 3 # Обрабатывать будем последние 10 сообщений
-	print('Kol-vo kommentov=', new_offset+3)
+	new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 10 # Обрабатывать будем последние 10 сообщений
+	print('Kol-vo kommentov=', new_offset+10)
 	##print('======================================')
 	time.sleep(0.5)
 	response_items = VK_getComments(VK_groupID, VK_topicID, new_offset)
