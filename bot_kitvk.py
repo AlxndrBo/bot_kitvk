@@ -116,8 +116,8 @@ def WriteToLog(DataForLog, LogFileName):
 #=====================================================================
 
 while 1:
-	new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 10 # Обрабатывать будем последние 10 сообщений
-	print('Kol-vo kommentov=', new_offset+10)
+	new_offset = VK_getCommentsQuantity(VK_groupID, VK_topicID) - 3 # Обрабатывать будем последние 10 сообщений
+	print('Kol-vo kommentov=', new_offset+3)
 	##print('======================================')
 	time.sleep(0.5)
 	response_items = VK_getComments(VK_groupID, VK_topicID, new_offset)
