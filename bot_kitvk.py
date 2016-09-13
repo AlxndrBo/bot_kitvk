@@ -35,6 +35,7 @@ def SteamConvert(SteamID): # Принимает ссылку вида /id/custom
 	flag=0
 	try:
 		conn.request("GET", SteamID)
+		print('+++++ ', SteamID)
 	except RemoteDisconnected:
 		WriteToLog('http.client.RemoteDisconnected', LogFile)
 		flag=1
