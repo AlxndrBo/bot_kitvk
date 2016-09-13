@@ -57,12 +57,12 @@ def SteamConvert(SteamID): # Принимает ссылку вида /id/custom
 			if resp_error:
 				print('resp_error = ', resp_error)
 		except Exception:
-			print('Problema')
-			print(data1)
+			#print('Problema')
+			#print(data1)
 		try:
 			SteamID64 = tree.xpath("/profile/steamID64/text()")[0]
 		except Exception:
-			print('Problema')
+			print('Problema SteamID64 = tree.xpath("/profile/steamID64/text()")[0]')
 			print(data1)
 		#CustomURL = tree.xpath("/profile/customURL/text()")[0]
 		#print('SteamID64='+SteamID64)
