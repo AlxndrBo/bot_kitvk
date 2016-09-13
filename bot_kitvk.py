@@ -32,18 +32,24 @@ def URI_Parser(AnyText): # Принимает текст, возвращает �
 
 def SteamConvert(SteamID): # Принимает ссылку вида /id/customURL/?xml=1 or /profiles/SteamID64/?xml=1, возвращает чекнутый через стим SteamID64
 	conn = http.client.HTTPConnection("steamcommunity.com")
+	flag=0
 	try:
 		conn.request("GET", SteamID)
 	except RemoteDisconnected:
 		WriteToLog('http.client.RemoteDisconnected', LogFile)
+		flag=1
 	except Exception:
 		WriteToLog('http.client.anyerr', LogFile)
+		flag=1
 	r1 = conn.getresponse()
+	if flag==1:
+		print(r1.read()) # для отладки.
 	if r1.status==200:
 		data1 = r1.read()
 		#tree = etree.parse('filename')
 		tree = etree.fromstring(data1)
 		#print(data1)
+		
 		SteamID64 = tree.xpath("/profile/steamID64/text()")[0]
 		#CustomURL = tree.xpath("/profile/customURL/text()")[0]
 		#print('SteamID64='+SteamID64)
