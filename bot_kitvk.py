@@ -56,12 +56,13 @@ def SteamConvert(SteamID): # Принимает ссылку вида /id/custom
 			resp_error = tree.xpath("/response/error/text()")[0]
 			if resp_error:
 				print('resp_error = ', resp_error)
+				return -2 # Если не следует пытаться запрашивать преобразовать этот URI
 		except Exception:
 			pass
 		try:
 			SteamID64 = tree.xpath("/profile/steamID64/text()")[0]
 		except Exception:
-			pass
+			return -2 # Если не следует пытаться запрашивать преобразовать этот URI
 		#CustomURL = tree.xpath("/profile/customURL/text()")[0]
 		#print('SteamID64='+SteamID64)
 		#print('CustomURL='+CustomURL)
@@ -140,6 +141,8 @@ while 1:
 			if UserInGroup==1:
 				#print("SteamURI"+SteamURI)
 				CheckedSteamID64 = SteamConvert(SteamURI)
+				if CheckedSteamID64==-2: #Если не следует пытаться отправлять повторные запросы с данным URI
+					continue
 				if CheckedSteamID64==-1:
 					time.sleep(180)
 					CheckedSteamID64 = SteamConvert(SteamURI)
@@ -150,8 +153,6 @@ while 1:
 					print("Checked SteamID64 = "+str(CheckedSteamID64))
 					#Также можно чекнуть, что с этого VKID не добавлялись ранее.
 					SteamID_list.append(CheckedSteamID64)
-					#AddSteamIDtoPermission(CheckedSteamID64, metod) # Добавить SteamID на игровой сервер 
-					#AddSteamIDnVKIDtoDB(CheckedSteamID64, VK_UserID) # Добавить пару SteamID, VKID в файл 
 				else:
 					print("Neverniy SteamID ili Steam mertv") 
 			else:
